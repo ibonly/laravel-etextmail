@@ -1,0 +1,35 @@
+{
+    "name": "ibonly/laravel-ngplaces",
+    "description": "A laravel app that is built on etextmail api",
+     "keywords": ["php","github", "laravel", "nigeria", "Open Source", "sms", "telephone", "africa", "extextmail", "ibonly", "laravel-extextmail"],
+    "license": "MIT",
+    "minimum-stability": "stable",
+    "authors": [
+        {
+            "name": "Adeniyi Ibraheem",
+            "email": "ibonly01@gmail.com"
+        }
+    ],
+    "autoload": {
+        "classmap": ["src/"],
+        "psr-4" : {
+            "Ibonly\\EtextMail\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "classmap": ["tests/"],
+        "psr-4": {
+            "Ibonly\\EtextMail\\Test\\": "tests"
+        }
+    },
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/support": "5.2.*",
+        "guzzlehttp/guzzle": "^6.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit" : "4.*",
+        "scrutinizer/ocular": "~1.1",
+        "codeclimate/php-test-reporter": "dev-master"
+    }
+}
