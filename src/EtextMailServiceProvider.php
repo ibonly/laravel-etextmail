@@ -9,11 +9,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Unicodeveloper\EtextMail;
+namespace Ibonly\EtextMail;
 
 use Illuminate\Support\ServiceProvider;
 
-class PaystackServiceProvider extends ServiceProvider
+class EtextMailServiceProvider extends ServiceProvider
 {
 
     /*
