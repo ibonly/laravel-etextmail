@@ -10,11 +10,11 @@
  */
 
 return [
+	'senderid' => getenv('ETEXTMAIL_SENDER'),
 
-    'email' => getenv('ETEXTMAIL_EMAIL'),
+    'username' => getenv('ETEXTMAIL_EMAIL'),
 
     'password' => getenv('EXTEXTMAIL_PASSWORD'),
 
-    'redirectUrl' => getenv('ETEXTMAIL_REDIRECT_URL'),
-
+    'url'	   => getenv('ETEXTMAIL_URL'),
 ];
