@@ -52,9 +52,40 @@ ETEXTMAIL_URL=http://mail.etextmail.com
 ```
 Note that resellers are to use their own url.
 
+##usage
+
+
 ```php
-EtextMail::getSMSBalance()
-EtextMail::sendMessage($destination, $message)
-EtextMail::getMessageCount($message)
-EtextMail::getCharacterCount($message)
+use EtextMail;
+
+class SMS
+{
+	public function getCreditBalance()
+	{
+		dd(EtextMail::getSMSBalance());
+	}
+
+	public function	messageCount($message)
+	{
+		dd(EtextMail::getMessageCount($message));
+	}
+
+	public function characterCount($message)
+	{
+		dd(EtextMail::getCharacterCount($message));
+	}
+
+	public function sendSMS($destination, $message)
+	{
+		dd(EtextMail::sendMessage($destination, $message));
+	}
+
+	//If sms message is more than one page
+	public function sendLongSMS($destination, $message, $longSMS)
+	{
+		dd(EtextMail::sendMessage($destination, $message, $longSMS))
+	}
+	
+	
+}
 ```
