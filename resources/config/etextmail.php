@@ -1,7 +1,7 @@
 <?php
 
 /*
- * This file is part of the Laravel Paystack package.
+ * This file is part of the Laravel EtextMail package.
  *
  * (c) Adeniyi Ibraheem <ibonly01@gmail.com>
  *
