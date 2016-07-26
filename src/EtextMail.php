@@ -141,7 +141,7 @@ class EtextMail
      * 
      * @return boolean
      */
-	public function getSMSBalance()
+	public function getCreditBalance()
 	{
 		return $this->getResponse($this->creditBalanceBaseUrl(), $this->setBalanceData());
 	}

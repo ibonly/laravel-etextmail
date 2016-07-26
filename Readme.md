@@ -85,6 +85,11 @@ class SMS
 	{
 		dd(EtextMail::sendMessage($destination, $message, $longSMS))
 	}
+
+	public function getSMSBalance()
+	{
+		dd(EtextMail::getCreditBalance())
+	}
 	
 	
 }
