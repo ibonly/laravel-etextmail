@@ -156,7 +156,7 @@ class EtextMail
      */
 	public function sendMessage($destination, $message, $longSms = null) 
 	{
-		return $this->getResponse($this->smsSendBaseUrl(), $this->setSendData($destination, $message, $longSms));
+		return $this->getResponse($this->sendSMSBaseUrl(), $this->setSendData($destination, $message, $longSms));
 	}
 
     /**
