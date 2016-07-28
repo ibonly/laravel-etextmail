@@ -10,7 +10,7 @@
  */
 
 return [
-	'senderid' => getenv('ETEXTMAIL_SENDER'),
+    'senderid' => getenv('ETEXTMAIL_SENDER'),
 
     'username' => getenv('ETEXTMAIL_EMAIL'),
 
