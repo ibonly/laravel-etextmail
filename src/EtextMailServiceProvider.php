@@ -27,7 +27,7 @@ class EtextMailServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        $config = realpath(__DIR__.'/../resources/config/etextmail.php');
+        $config = realpath(__DIR__ . '/../resources/config/etextmail.php');
 
         $this->publishes([
             $config => config_path('etextmail.php')
@@ -39,7 +39,7 @@ class EtextMailServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->bind('laravel-etextmail', function () {
+        $this->app->bind('laravel-etextmail', function() {
 
             return new EtextMail;
 
