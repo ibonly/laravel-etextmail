@@ -21,11 +21,9 @@ class InvalidSenderIdException extends Exception
 		switch ($errorCode) {
 			case -35:
 				return "Missing or Invalid sender Id";
-				break;
 
 			case -40:
 				return "Sender Id exceed the maximum length of 11 characters";
-				break;
 
 			default:
 				return "Invalid sender id";
