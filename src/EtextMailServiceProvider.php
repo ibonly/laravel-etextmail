@@ -15,16 +15,16 @@ use Illuminate\Support\ServiceProvider;
 
 class EtextMailServiceProvider extends ServiceProvider
 {
-    /*
-    * Indicates if loading of the provider is deferred.
-    *
-    * @var bool
-    */
+    /**
+     * Indicates if loading of the provider is deferred.
+     *
+     * @var bool
+     */
     protected $defer = false;
 
     /**
-    * Publishes all the config file this package needs to function
-    */
+     * Publishes all the config file this package needs to function
+     */
     public function boot()
     {
         $config = realpath(__DIR__.'/../resources/config/etextmail.php');
@@ -35,8 +35,8 @@ class EtextMailServiceProvider extends ServiceProvider
     }
 
     /**
-    * Register the application services.
-    */
+     * Register the application services.
+     */
     public function register()
     {
         $this->app->bind('laravel-etextmail', function () {
@@ -47,9 +47,9 @@ class EtextMailServiceProvider extends ServiceProvider
     }
 
     /**
-    * Get the services provided by the provider
-    * @return array
-    */
+     * Get the services provided by the provider
+     * @return array
+     */
     public function provides()
     {
         return ['laravel-etextmail'];
