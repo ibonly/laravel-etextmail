@@ -3,15 +3,7 @@
 namespace Ibonly\EtextMail;
 
 use Illuminate\Support\Facades\Config;
-use Ibonly\EtextMail\Exception\MessageException;
-use Ibonly\EtextMail\Exception\InvalidUserException;
-use Ibonly\EtextMail\Exception\SystemErrorException;
-use Ibonly\EtextMail\Exception\MessageLimitException;
-use Ibonly\EtextMail\Exception\RequestErrorException;
-use Ibonly\EtextMail\Exception\MessageNotSentException;
-use Ibonly\EtextMail\Exception\InvalidSenderIdException;
-use Ibonly\EtextMail\Exception\InsufficientCreditException;
-use Ibonly\EtextMail\Exception\InvalidDestinationException;
+use Ibonly\EtextMail\Exception\EtextMailException;
 
 class EtextMail
 {
@@ -148,7 +140,7 @@ class EtextMail
     /**
      * Get sms balance from api
      * 
-     * @return boolean
+     * @return string
      */
     public function getCreditBalance()
     {
@@ -172,7 +164,7 @@ class EtextMail
      * Get number of messages sent/to be sent
      * 
      * @param  $message
-     * @return int
+     * @return string
      */
     public function getMessageCount($message)
     {
@@ -183,7 +175,7 @@ class EtextMail
      * Get the number of character in a message
      * 
      * @param  $message
-     * @return int
+     * @return string
      */
     public function getCharacterCount($message)
     {
@@ -193,14 +185,14 @@ class EtextMail
     /**
      * Build the query string parameter
      * 
-     * @param  $_data
+     * @param  $sData
      * @return string      
      */
-    public function queryString($_data)
+    public function queryString($sData)
     {
         $data = array();
 
-        while (list($var, $value) = each($_data)) {
+        while (list($var, $value) = each($sData)) {
             $data[] = "$var=$value";
         }
 
@@ -227,12 +219,12 @@ class EtextMail
      * Process http request
      * 
      * @param  $url
-     * @param  $_data
-     * @return object
+     * @param  $sData
+     * @return resource
      */
-    public function sendRequest($url, $_data)
+    public function sendRequest($url, $sData)
     {
-        $data = $this->queryString($_data);
+        $data = $this->queryString($sData);
         $host = $this->parseUrl($url)['host'];                                    // extract host and path:
         $path = $this->parseUrl($url)['path'];
         $fp = fsockopen($host, 80);                                               // open a socket connection on port 80
@@ -251,12 +243,12 @@ class EtextMail
      * Recieve result from the request
      * 
      * @param  $url
-     * @param  $_data
+     * @param  $sData
      * @return array
      */
-    public function postRequest($url, $_data) 
+    public function postRequest($url, $sData) 
     {
-        $fp = $this->sendRequest($url, $_data);
+        $fp = $this->sendRequest($url, $sData);
 
         $result = ''; 
         while (!feof($fp)) {
@@ -272,6 +264,9 @@ class EtextMail
         return [$header, $content];
     }
 
+    /**
+     * @param string $senderId
+     */
     public function validateSenderId($senderId)
     {
         return strlen($senderId) <= 11 != 0 && strlen($senderId) >= 2 ? true : false;
@@ -280,9 +275,9 @@ class EtextMail
     /**
      * Get the response data from the result
      * 
-     * @param  $url
+     * @param  string $url
      * @param  $data
-     * @return object
+     * @return string
      */
     public function getResponse($url, $data)
     {
@@ -302,7 +297,7 @@ class EtextMail
     /**
      * Output function for call
      * 
-     * @param  $tok
+     * @param  string $tok
      * @param  $errorCode
      * @return string
      */
@@ -312,48 +307,7 @@ class EtextMail
             $tok = strtok(" ");
             return $tok;
         } else {
-            $this->etextmailExceptions($errorCode);
-        }
-    }
-
-    /**
-     * Custom etextmail exception
-     * 
-     * @param  $errorCode
-     * @return Ibonly\EtextMail\Exception
-     */
-    public function etextmailExceptions($errorCode)
-    {
-        switch ($errorCode) {
-            case -5:
-                throw new InsufficientCreditException();
-
-            case -10:
-                throw new InvalidUserException();
-
-            case -15:
-                throw new InvalidDestinationException();
-
-            case -20:
-                throw new SystemErrorException();
-
-            case -25:
-                throw new RequestErrorException();
-
-            case -30:
-                throw new MessageNotSentException();
-
-            case -45:
-                throw new InvalidDestinationException();
-
-            case -50:
-                throw new MessageException();
-
-            case -55:
-                throw new MessageLimitException();
-            
-            default:
-                throw new \Exception('Error: please contact app admin via laravel-etextmail github issues');
+            throw new EtextMailException($errorCode);
         }
     }
 }
