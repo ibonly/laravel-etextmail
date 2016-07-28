@@ -6,20 +6,30 @@ use Exception;
 
 class InvalidDestinationException extends Exception
 {
-	public function errorMessage($errorCode)
-	{
-		switch ($errorCode) {
-			case 15:
-				return "Exception: Invalid destination or destination not covered";
-				break;
+    public function __construct($errorCode)
+    {
+        parent::__construct($this->errorMessage($errorCode));
+    }
+    
+    /**
+     * Get error message
+     *
+     * @return string
+     */
+    public function errorMessage($errorCode)
+    {
+        switch ($errorCode) {
+            case -15:
+                return "Invalid destination or destination not covered";
+                break;
 
-			case 45:
-				return "Exception: Missing or Invalid destination;"
-				break;
+            case -45:
+                return "Missing or Invalid destination;"
+                break;
 
-			default:
-				return "Exception: Invalid destination";
-				break;
-		}
-	}
+            default:
+                return "Invalid destination";
+                break;
+        }
+    }
 }

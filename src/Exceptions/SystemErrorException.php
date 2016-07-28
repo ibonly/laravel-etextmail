@@ -18,6 +18,6 @@ class SystemErrorException extends Exception
      */
     public function errorMessage()
     {
-        return "Exception: " . $this->getMessage();
+        return $this->getMessage();
     }
 }

@@ -3,6 +3,15 @@
 namespace Ibonly\EtextMail;
 
 use Illuminate\Support\Facades\Config;
+use Ibonly\EtextMail\Exception\MessageException;
+use Ibonly\EtextMail\Exception\InvalidUserException;
+use Ibonly\EtextMail\Exception\SystemErrorException;
+use Ibonly\EtextMail\Exception\MessageLimitException;
+use Ibonly\EtextMail\Exception\RequestErrorException;
+use Ibonly\EtextMail\Exception\MessageNotSentException;
+use Ibonly\EtextMail\Exception\InvalidSenderIdException;
+use Ibonly\EtextMail\Exception\InsufficientCreditException;
+use Ibonly\EtextMail\Exception\InvalidDestinationException;
 
 class EtextMail
 {
@@ -11,10 +20,10 @@ class EtextMail
      * 
      * @return string
      */
-	public function getSenderId()
-	{
-		return Config::get('etextmail.senderid');
-	}
+    public function getSenderId()
+    {
+        return Config::get('etextmail.senderid');
+    }
 
     /**
      * get username from environment variables
@@ -51,13 +60,13 @@ class EtextMail
      * 
      * @return array
      */
-	public function setBalanceData()
-	{
-		return [
+    public function setBalanceData()
+    {
+        return [
                 'UN' => $this->getUsername(), 
-			  	'p'  => $this->getPassword()
+                'p'  => $this->getPassword()
             ];
-	}
+    }
 
     /**
      * Set the data required to send sms
@@ -67,11 +76,11 @@ class EtextMail
      * @param  $long
      * @return array
      */
-	public function setSendData($destination, $message, $long)
-	{
-		$longSms = $long === null ? 0 : $long;
-
-		return [     
+    public function setSendData($destination, $message, $long)
+    {
+        $longSms = $long === null ? 0 : $long;
+        
+        return [     
                 'UN' => $this->getUsername(), 
                 'p'  => $this->getPassword(),
                 'SA' => $this->getSenderId(),
@@ -79,7 +88,7 @@ class EtextMail
                 'L'  => $longSms, 
                 'M'  => $message
             ];
-	}
+    }
 
     /**
      * Set the data required to get message details
@@ -87,14 +96,14 @@ class EtextMail
      * @param  $message
      * @return array
      */
-	public function setMessageCountData($message)
-	{
-		return [
+    public function setMessageCountData($message)
+    {
+        return [
                 'UN' => $this->getUsername(), 
                 'p'  => $this->getPassword(),
                 'M'  => $message
             ];
-	}
+    }
 
     /**
      * Build sms send api url
@@ -111,40 +120,40 @@ class EtextMail
      * 
      * @return string
      */
-	public function creditBalanceBaseUrl()
-	{
-		return $this->getDomain().'/smsapi/GetCreditBalance.aspx?';
-	}
+    public function creditBalanceBaseUrl()
+    {
+        return $this->getDomain().'/smsapi/GetCreditBalance.aspx?';
+    }
 
     /**
      * Build character count api url
      * 
      * @return string
      */
-	public function characterCountBaseUrl()
-	{
-		return $this->getDomain()."/smsapi/GetCharacterCount.aspx?";
-	}
+    public function characterCountBaseUrl()
+    {
+        return $this->getDomain()."/smsapi/GetCharacterCount.aspx?";
+    }
 
     /**
      * Build message count api url
      * 
      * @return string
      */
-	public function messageCountBaseUrl()
-	{
-		return $this->getDomain()."/smsapi/GetMessageCount.aspx?";
-	}
+    public function messageCountBaseUrl()
+    {
+        return $this->getDomain()."/smsapi/GetMessageCount.aspx?";
+    }
 
     /**
      * Get sms balance from api
      * 
      * @return boolean
      */
-	public function getCreditBalance()
-	{
-		return $this->getResponse($this->creditBalanceBaseUrl(), $this->setBalanceData());
-	}
+    public function getCreditBalance()
+    {
+        return $this->getResponse($this->creditBalanceBaseUrl(), $this->setBalanceData());
+    }
 
     /**
      * Send sms via the api
@@ -154,10 +163,10 @@ class EtextMail
      * @param  $longSms
      * @return int/float
      */
-	public function sendMessage($destination, $message, $longSms = null) 
-	{
-		return $this->getResponse($this->sendSMSBaseUrl(), $this->setSendData($destination, $message, $longSms));
-	}
+    public function sendMessage($destination, $message, $longSms = null) 
+    {
+        return $this->getResponse($this->sendSMSBaseUrl(), $this->setSendData($destination, $message, $longSms));
+    }
 
     /**
      * Get number of messages sent/to be sent
@@ -165,10 +174,10 @@ class EtextMail
      * @param  $message
      * @return int
      */
-	public function getMessageCount($message)
-	{
+    public function getMessageCount($message)
+    {
         return $this->getResponse($this->messageCountBaseUrl(), $this->setMessageCountData($message));
-	}
+    }
 
     /**
      * Get the number of character in a message
@@ -176,10 +185,10 @@ class EtextMail
      * @param  $message
      * @return int
      */
-	public function getCharacterCount($message)
-	{
+    public function getCharacterCount($message)
+    {
         return $this->getResponse($this->characterCountBaseUrl(), $this->setMessageCountData($message));
-	}
+    }
 
     /**
      * Build the query string parameter
@@ -263,6 +272,11 @@ class EtextMail
         return [$header, $content];
     }
 
+    public function validateSenderId($senderId)
+    {
+        return strlen($senderId) <= 11 != 0 && strlen($senderId) >= 2 ? true : false;
+    }
+
     /**
      * Get the response data from the result
      * 
@@ -274,17 +288,82 @@ class EtextMail
     {
         list($header, $content) = $this->postRequest($url, $data);
 
-        // display the result of the request
-        //echo $content . '<br>';
-
         $tok = strtok($content, " "); //Split the $content result into words
 
-        if ($tok == "OK") { //Success
+        $error_code = explode(' ', $content)[1];
+
+        if (!$this->validateSenderId($this->getSenderId())) {
+            throw new InvalidSenderIdException($error_code);
+        }
+
+        return $this->successErrorMessage($tok, $error_code);
+    }
+
+    /**
+     * Output function for call
+     * 
+     * @param  $tok
+     * @param  $errorCode
+     * @return string
+     */
+    public function successErrorMessage($tok, $errorCode)
+    {
+        if ($tok == "OK") {
             $tok = strtok(" ");
             return $tok;
         } else {
-            //Diaply the full error message
-            return $content;
+            $this->etextmailExceptions($errorCode);
+        }
+    }
+
+    /**
+     * Custom etextmail exception
+     * 
+     * @param  $errorCode
+     * @return Ibonly\EtextMail\Exception
+     */
+    public function etextmailExceptions($errorCode)
+    {
+        switch ($errorCode) {
+            case -5:
+                throw new InsufficientCreditException();
+                break;
+
+            case -10:
+                throw new InvalidUserException();
+                break;
+
+            case -15:
+                throw new InvalidDestinationException();
+                break;
+
+            case -20:
+                throw new SystemErrorException();
+                break;
+
+            case -25:
+                throw new RequestErrorException();
+                break;
+
+            case -30:
+                throw new MessageNotSentException();
+                break;
+
+            case -45:
+                throw new InvalidDestinationException();
+                break;
+
+            case -50:
+                throw new MessageException();
+                break;
+
+            case -55:
+                throw new MessageLimitException();
+                break;
+            
+            default:
+                throw new \Exception('Error: please contact app admin via laravel-etextmail github issues');
+                break;
         }
     }
 }
