@@ -1,6 +1,7 @@
 [![Build Status](https://travis-ci.org/andela-iadeniyi/laravel-etextmail.svg?branch=master)](https://travis-ci.org/andela-iadeniyi/laravel-etextmail)
 [![Coverage Status](https://coveralls.io/repos/github/andela-iadeniyi/laravel-etextmail/badge.svg?branch=master)](https://coveralls.io/github/andela-iadeniyi/laravel-etextmail?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/?branch=master)
+[![Code Climate](https://codeclimate.com/github/andela-iadeniyi/laravel-etextmail/badges/gpa.svg)](https://codeclimate.com/github/andela-iadeniyi/laravel-etextmail)
 
 To get the latest version of laravel-etextmail, simply 
 
