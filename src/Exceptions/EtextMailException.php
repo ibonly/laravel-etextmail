@@ -6,7 +6,7 @@ use Exception;
 
 class EtextMailException extends Exception
 {
-    public function __construct($errorCode)
+    public function __construct($errorCode = null)
     {
         parent::__construct($this->errorMessage($errorCode));
     }
