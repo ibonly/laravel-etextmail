@@ -140,7 +140,7 @@ class EtextMail
     /**
      * Get sms balance from api
      * 
-     * @return boolean
+     * @return string
      */
     public function getCreditBalance()
     {
@@ -164,7 +164,7 @@ class EtextMail
      * Get number of messages sent/to be sent
      * 
      * @param  $message
-     * @return int
+     * @return string
      */
     public function getMessageCount($message)
     {
@@ -175,7 +175,7 @@ class EtextMail
      * Get the number of character in a message
      * 
      * @param  $message
-     * @return int
+     * @return string
      */
     public function getCharacterCount($message)
     {
@@ -220,7 +220,7 @@ class EtextMail
      * 
      * @param  $url
      * @param  $_data
-     * @return object
+     * @return resource
      */
     public function sendRequest($url, $_data)
     {
@@ -264,6 +264,9 @@ class EtextMail
         return [$header, $content];
     }
 
+    /**
+     * @param string $senderId
+     */
     public function validateSenderId($senderId)
     {
         return strlen($senderId) <= 11 != 0 && strlen($senderId) >= 2 ? true : false;
@@ -272,9 +275,9 @@ class EtextMail
     /**
      * Get the response data from the result
      * 
-     * @param  $url
+     * @param  string $url
      * @param  $data
-     * @return object
+     * @return string
      */
     public function getResponse($url, $data)
     {
@@ -294,7 +297,7 @@ class EtextMail
     /**
      * Output function for call
      * 
-     * @param  $tok
+     * @param  string $tok
      * @param  $errorCode
      * @return string
      */
