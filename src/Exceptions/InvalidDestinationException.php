@@ -21,11 +21,9 @@ class InvalidDestinationException extends Exception
         switch ($errorCode) {
             case -15:
                 return "Invalid destination or destination not covered";
-                break;
 
             case -45:
                 return "Missing or Invalid destination;"
-                break;
 
             default:
                 return "Invalid destination";
