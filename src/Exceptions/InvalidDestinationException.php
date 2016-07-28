@@ -23,11 +23,10 @@ class InvalidDestinationException extends Exception
                 return "Invalid destination or destination not covered";
 
             case -45:
-                return "Missing or Invalid destination;"
+                return "Missing or Invalid destination";
 
             default:
                 return "Invalid destination";
-                break;
         }
     }
 }

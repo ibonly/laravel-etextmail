@@ -27,7 +27,6 @@ class InvalidSenderIdException extends Exception
 
 			default:
 				return "Invalid sender id";
-				break;
 		}
 	}
 }

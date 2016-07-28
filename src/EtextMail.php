@@ -79,7 +79,7 @@ class EtextMail
     public function setSendData($destination, $message, $long)
     {
         $longSms = $long === null ? 0 : $long;
-        
+
         return [     
                 'UN' => $this->getUsername(), 
                 'p'  => $this->getPassword(),
@@ -327,43 +327,33 @@ class EtextMail
         switch ($errorCode) {
             case -5:
                 throw new InsufficientCreditException();
-                break;
 
             case -10:
                 throw new InvalidUserException();
-                break;
 
             case -15:
                 throw new InvalidDestinationException();
-                break;
 
             case -20:
                 throw new SystemErrorException();
-                break;
 
             case -25:
                 throw new RequestErrorException();
-                break;
 
             case -30:
                 throw new MessageNotSentException();
-                break;
 
             case -45:
                 throw new InvalidDestinationException();
-                break;
 
             case -50:
                 throw new MessageException();
-                break;
 
             case -55:
                 throw new MessageLimitException();
-                break;
             
             default:
                 throw new \Exception('Error: please contact app admin via laravel-etextmail github issues');
-                break;
         }
     }
 }
