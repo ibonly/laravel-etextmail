@@ -27,7 +27,6 @@ class InvalidDestinationException extends Exception
 
             default:
                 return "Invalid destination";
-                break;
         }
     }
 }
