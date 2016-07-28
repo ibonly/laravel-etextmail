@@ -1,0 +1,25 @@
+language: php
+
+php:
+  - 5.5.9
+  - 5.5
+  - 5.6
+  - 7.0
+  - hhvm
+
+matrix:
+    allow_failures:
+        - php: 7.0
+        - php: hhvm
+
+install: travis_retry composer install --no-interaction --prefer-source
+
+script:
+  - mkdir -p build/logs
+  - phpunit --coverage-text --coverage-clover build/logs/clover.xml
+  - vendor/bin/phpunit --coverage-text --coverage-clover=coverage.clover
+
+after_script: CODECLIMATE_REPO_TOKEN=801319689a0a1671d9b4065331cb42e28925ffe91984b53dd497b5004e9508d2 ./vendor/bin/test-reporter
+
+after_success:
+  - travis_retry php vendor/bin/coveralls -v
