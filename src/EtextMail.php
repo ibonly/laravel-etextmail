@@ -185,14 +185,14 @@ class EtextMail
     /**
      * Build the query string parameter
      * 
-     * @param  $_data
+     * @param  $sData
      * @return string      
      */
-    public function queryString($_data)
+    public function queryString($sData)
     {
         $data = array();
 
-        while (list($var, $value) = each($_data)) {
+        while (list($var, $value) = each($sData)) {
             $data[] = "$var=$value";
         }
 
@@ -219,12 +219,12 @@ class EtextMail
      * Process http request
      * 
      * @param  $url
-     * @param  $_data
+     * @param  $sData
      * @return resource
      */
-    public function sendRequest($url, $_data)
+    public function sendRequest($url, $sData)
     {
-        $data = $this->queryString($_data);
+        $data = $this->queryString($sData);
         $host = $this->parseUrl($url)['host'];                                    // extract host and path:
         $path = $this->parseUrl($url)['path'];
         $fp = fsockopen($host, 80);                                               // open a socket connection on port 80
@@ -243,12 +243,12 @@ class EtextMail
      * Recieve result from the request
      * 
      * @param  $url
-     * @param  $_data
+     * @param  $sData
      * @return array
      */
-    public function postRequest($url, $_data) 
+    public function postRequest($url, $sData) 
     {
-        $fp = $this->sendRequest($url, $_data);
+        $fp = $this->sendRequest($url, $sData);
 
         $result = ''; 
         while (!feof($fp)) {
