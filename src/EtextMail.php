@@ -3,15 +3,7 @@
 namespace Ibonly\EtextMail;
 
 use Illuminate\Support\Facades\Config;
-use Ibonly\EtextMail\Exception\MessageException;
-use Ibonly\EtextMail\Exception\InvalidUserException;
-use Ibonly\EtextMail\Exception\SystemErrorException;
-use Ibonly\EtextMail\Exception\MessageLimitException;
-use Ibonly\EtextMail\Exception\RequestErrorException;
-use Ibonly\EtextMail\Exception\MessageNotSentException;
-use Ibonly\EtextMail\Exception\InvalidSenderIdException;
-use Ibonly\EtextMail\Exception\InsufficientCreditException;
-use Ibonly\EtextMail\Exception\InvalidDestinationException;
+use Ibonly\EtextMail\Exception\EtextMailException;
 
 class EtextMail
 {
@@ -312,48 +304,7 @@ class EtextMail
             $tok = strtok(" ");
             return $tok;
         } else {
-            $this->etextmailExceptions($errorCode);
-        }
-    }
-
-    /**
-     * Custom etextmail exception
-     * 
-     * @param  $errorCode
-     * @return Ibonly\EtextMail\Exception
-     */
-    public function etextmailExceptions($errorCode)
-    {
-        switch ($errorCode) {
-            case -5:
-                throw new InsufficientCreditException();
-
-            case -10:
-                throw new InvalidUserException();
-
-            case -15:
-                throw new InvalidDestinationException();
-
-            case -20:
-                throw new SystemErrorException();
-
-            case -25:
-                throw new RequestErrorException();
-
-            case -30:
-                throw new MessageNotSentException();
-
-            case -45:
-                throw new InvalidDestinationException();
-
-            case -50:
-                throw new MessageException();
-
-            case -55:
-                throw new MessageLimitException();
-            
-            default:
-                throw new \Exception('Error: please contact app admin via laravel-etextmail github issues');
+            throw new EtextMailException($errorCode);
         }
     }
 }
