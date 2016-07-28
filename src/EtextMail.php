@@ -209,7 +209,7 @@ class EtextMail
     {
         $url = parse_url($url);
         if ($url['scheme'] != 'http') {
-            die('Only Http request are supported !');
+            throw new EtextMailException();
         }
 
         return $url;
@@ -288,7 +288,7 @@ class EtextMail
         $error_code = explode(' ', $content)[1];
 
         if (!$this->validateSenderId($this->getSenderId())) {
-            throw new InvalidSenderIdException($error_code);
+            throw new EtextMailException($error_code);
         }
 
         return $this->successErrorMessage($tok, $error_code);
