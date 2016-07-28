@@ -56,4 +56,9 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
         $this->receiveAndReturn('assertEquals', 'object', 'setSendData', ['UN' => 'username', 'p' => 'password', '...' => '......']);
 	}
 
+	public function testShouldSetMessageCountData()
+	{
+        $this->receiveAndReturn('assertEquals', 'object', 'setMessageCountData', ['UN' => 'username', 'p' => 'password', '...' => '......']);
+	}
+
 }
