@@ -104,7 +104,7 @@ class EtextMail
      */
     public function sendSMSBaseUrl()
     {
-        return $this->getDomain()."/smsapi/Send.aspx?";
+        return $this->getDomain() . "/smsapi/Send.aspx?";
     }
 
     /**
@@ -114,7 +114,7 @@ class EtextMail
      */
     public function creditBalanceBaseUrl()
     {
-        return $this->getDomain().'/smsapi/GetCreditBalance.aspx?';
+        return $this->getDomain() . '/smsapi/GetCreditBalance.aspx?';
     }
 
     /**
@@ -124,7 +124,7 @@ class EtextMail
      */
     public function characterCountBaseUrl()
     {
-        return $this->getDomain()."/smsapi/GetCharacterCount.aspx?";
+        return $this->getDomain() . "/smsapi/GetCharacterCount.aspx?";
     }
 
     /**
@@ -134,7 +134,7 @@ class EtextMail
      */
     public function messageCountBaseUrl()
     {
-        return $this->getDomain()."/smsapi/GetMessageCount.aspx?";
+        return $this->getDomain() . "/smsapi/GetMessageCount.aspx?";
     }
 
     /**
@@ -225,14 +225,14 @@ class EtextMail
     private function sendRequest($url, $sData)
     {
         $data = $this->queryString($sData);
-        $host = $this->parseUrl($url)['host'];                                    // extract host and path:
+        $host = $this->parseUrl($url)['host']; // extract host and path:
         $path = $this->parseUrl($url)['path'];
-        $socket = fsockopen($host, 80);                                               // open a socket connection on port 80
+        $socket = fsockopen($host, 80); // open a socket connection on port 80
      
-        fputs($socket, "POST $path HTTP/1.1\r\n");                                    // send the request headers:
+        fputs($socket, "POST $path HTTP/1.1\r\n"); // send the request headers:
         fputs($socket, "Host: $host\r\n");
         fputs($socket, "Content-type: application/x-www-form-urlencoded\r\n");
-        fputs($socket, "Content-length: ". strlen($data) ."\r\n");
+        fputs($socket, "Content-length: " . strlen($data) . "\r\n");
         fputs($socket, "Connection: close\r\n\r\n");
         fputs($socket, $data);
 
@@ -257,7 +257,7 @@ class EtextMail
 
         fclose($socket);
      
-        $result = explode("\r\n\r\n", $result, 2);                                // split the result header from the content
+        $result = explode("\r\n\r\n", $result, 2); // split the result header from the content
         $header = isset($result[0]) ? $result[0] : '';
         $content = isset($result[1]) ? $result[1] : '';
      
