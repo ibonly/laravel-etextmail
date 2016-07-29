@@ -242,7 +242,7 @@ class EtextMail
     /**
      * Recieve result from the request
      * 
-     * @param  $url
+     * @param  string $url
      * @param  $sData
      * @return array
      */
