@@ -61,4 +61,9 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
         $this->receiveAndReturn('assertEquals', 'object', 'setMessageCountData', ['UN' => 'username', 'p' => 'password', '...' => '......']);
 	}
 
+	public function testShouldGetSendSMSBaseURL()
+	{
+		$this->receiveAndReturn('assertEquals', 'object', 'sendSMSBaseUrl', 'http://mail.etextmail.com/smsapi/Send.aspx?');
+	}
+
 }
