@@ -98,3 +98,18 @@ class SMS
 	
 }
 ```
+
+## Testing
+
+```
+$ vendor/bin/phpunit test
+```
+
+## Contributing
+
+To contribute and extend the scope of this package,
+Please check out [CONTRIBUTING](CONTRIBUTING.md) file for detailed contribution guidelines.
+
+## Credits
+
+Laravel-etextmail is created and maintained by `Ibraheem ADENIYI`.
