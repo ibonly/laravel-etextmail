@@ -2,6 +2,9 @@
 [![Coverage Status](https://coveralls.io/repos/github/andela-iadeniyi/laravel-etextmail/badge.svg?branch=master)](https://coveralls.io/github/andela-iadeniyi/laravel-etextmail?branch=master)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/?branch=master)
 
+#Laravel-EtextMail
+Laravel-etextmail is built on etextmail api (http://etextmail.com) which is an SMS gateway to send sms messages to cell phones on GSM and CDMA networks, Glo, MTN, Zain, Etisalat, Starcomms, Visafone in Nigeria and Globally.
+
 To get the latest version of laravel-etextmail, simply 
 
 ```php
@@ -63,35 +66,51 @@ use EtextMail;
 
 class SMS
 {
-	public function getCreditBalance()
+	/**
+	 * @return float
+	 */
+	public function getSMSBalance()
 	{
-		dd(EtextMail::getSMSBalance());
+		dd(EtextMail::getCreditBalance())
 	}
 
+	/**
+	 * @param  $message [the message to be processed]
+	 * @return int
+	 */
 	public function	messageCount($message)
 	{
 		dd(EtextMail::getMessageCount($message));
 	}
 
+	/**
+	 * @param  $message [the message to be processed]
+	 * @return int
+	 */
 	public function characterCount($message)
 	{
 		dd(EtextMail::getCharacterCount($message));
 	}
 
+	/**
+	 * @param  $destination [reciever's mobile number]
+	 * @param  message      [the message to be processed]
+	 * @return boolean
+	 */
 	public function sendSMS($destination, $message)
 	{
 		dd(EtextMail::sendMessage($destination, $message));
 	}
 
-	//If sms message is more than one page
+	/**
+	 * @param  $destination [reciever's mobile number]
+	 * @param  $message     [the message to be processed]
+	 * @param  $longSMS     [number of pages]
+	 * @return boolean
+	 */
 	public function sendLongSMS($destination, $message, $longSMS)
 	{
 		dd(EtextMail::sendMessage($destination, $message, $longSMS))
-	}
-
-	public function getSMSBalance()
-	{
-		dd(EtextMail::getCreditBalance())
 	}
 	
 	
