@@ -81,4 +81,9 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
 		$this->receiveAndReturn('assertEquals', 'object', 'messageCountBaseUrl', 'http://mail.etextmail.com/smsapi/GetMessageCount.aspx?');
 	}
 
+	public function testGetCreditBalance()
+	{
+		$this->receiveAndReturn('assertEquals', 'object', 'getCreditBalance', '127');
+	}
+
 }
