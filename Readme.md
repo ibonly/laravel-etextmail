@@ -129,6 +129,7 @@ $ vendor/bin/phpunit test
 
 To contribute and extend the scope of this package,
 Please check out [CONTRIBUTING](CONTRIBUTING.md) file for detailed contribution guidelines.
+Feel free to raise any issue or concern.
 
 ## Credits
 
