@@ -1,6 +1,8 @@
 [![Build Status](https://travis-ci.org/andela-iadeniyi/laravel-etextmail.svg?branch=master)](https://travis-ci.org/andela-iadeniyi/laravel-etextmail)
-[![Coverage Status](https://coveralls.io/repos/github/andela-iadeniyi/laravel-etextmail/badge.svg?branch=master)](https://coveralls.io/github/andela-iadeniyi/laravel-etextmail?branch=master)
+[![Coverage Status](https://coveralls.io/repos/github/andela-iadeniyi/laravel-etextmail/badge.svg)](https://coveralls.io/github/andela-iadeniyi/laravel-etextmail)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/?branch=master)
+[![Code Climate](https://codeclimate.com/github/andela-iadeniyi/laravel-etextmail/badges/gpa.svg)](https://codeclimate.com/github/andela-iadeniyi/laravel-etextmail)
+[![Build Status](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/badges/build.png?b=master)](https://scrutinizer-ci.com/g/andela-iadeniyi/laravel-etextmail/build-status/master)
 
 #Laravel-EtextMail
 Laravel-etextmail is built on etextmail api (http://etextmail.com) which is an SMS gateway to send sms messages to cell phones on GSM and CDMA networks, Glo, MTN, Zain, Etisalat, Starcomms, Visafone in Nigeria and Globally.
@@ -127,6 +129,7 @@ $ vendor/bin/phpunit test
 
 To contribute and extend the scope of this package,
 Please check out [CONTRIBUTING](CONTRIBUTING.md) file for detailed contribution guidelines.
+Feel free to raise any issue or concern.
 
 ## Credits
 
