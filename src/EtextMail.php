@@ -218,7 +218,7 @@ class EtextMail
     /**
      * Process http request
      * 
-     * @param  $url
+     * @param  string $url
      * @param  $sData
      * @return resource
      */
