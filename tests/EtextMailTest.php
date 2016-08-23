@@ -20,6 +20,11 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
         m::close();
     }
 
+    /**
+     * @param string $assert
+     * @param string $expectedType
+     * @param string $receive
+     */
     public function receiveAndReturn($assert, $expectedType, $receive, $return)
     {
         $value = $this->etextmail->shouldReceive($receive)->andReturn($return);
