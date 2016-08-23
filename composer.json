@@ -26,7 +26,7 @@
         "php": ">=5.5.9",
         "illuminate/support": "5.2.*"
     },
-    "require-dev": {,
+    "require-dev": {
         "mockery/mockery": "^0.9.5",
         "phpunit/phpunit" : "4.*",
         "scrutinizer/ocular": "~1.1",
