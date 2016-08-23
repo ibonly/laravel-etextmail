@@ -16,5 +16,8 @@
     </testsuites>
     <logging>
         <log type="coverage-php" target="build/cov/coverage.cov"/>
+        <log type="coverage-text" target="php://stdout" showUncoveredFiles="true"/>
+        <log type="coverage-clover" target="build/logs/clover.xml"/>
+        <log type="junit" target="build/logs/junit.xml" logIncompleteSkipped="false"/>
     </logging>
 </phpunit>
