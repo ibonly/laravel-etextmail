@@ -128,7 +128,7 @@ class EtextMail extends BaseController
     /**
      * Process http request
      * 
-     * @param  $url
+     * @param  string $url
      * @param  $sData
      * @return resource
      */
