@@ -10,7 +10,7 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Laravel NgPlaces">
+        <testsuite name="Laravel EtextMail">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
