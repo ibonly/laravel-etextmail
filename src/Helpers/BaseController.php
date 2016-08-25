@@ -3,6 +3,7 @@
 namespace Ibonly\EtextMail\Helpers;
 
 use Illuminate\Support\Facades\Config;
+use Ibonly\EtextMail\Exception\EtextMailException;
 
 class BaseController
 {
@@ -83,7 +84,7 @@ class BaseController
 
     /**
      * Set the data required to get message details
-     * @param  $message
+     * @param  string $message
      * @access public
      * @return array
      */
@@ -221,7 +222,7 @@ class BaseController
     /**
      * @param string $senderId
      * @access public
-     * @return string
+     * @return boolean
      */
     public function validateSenderId($senderId)
     {

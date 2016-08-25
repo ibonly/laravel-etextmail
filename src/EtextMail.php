@@ -3,7 +3,6 @@
 namespace Ibonly\EtextMail;
 
 use Ibonly\EtextMail\Helpers\BaseController;
-use Ibonly\EtextMail\Exception\EtextMailException;
 
 class EtextMail extends BaseController
 {
