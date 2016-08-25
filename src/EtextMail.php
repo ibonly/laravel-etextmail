@@ -3,53 +3,12 @@
 namespace Ibonly\EtextMail;
 
 use Ibonly\EtextMail\Helpers\BaseController;
-use Ibonly\EtextMail\Exception\EtextMailException;
 
 class EtextMail extends BaseController
 {
     /**
-     * Build sms send api url
-     * 
-     * @return string
-     */
-    public function sendSMSBaseUrl()
-    {
-        return $this->getDomain() . "/smsapi/Send.aspx?";
-    }
-
-    /**
-     * Build credit balance api url
-     * 
-     * @return string
-     */
-    public function creditBalanceBaseUrl()
-    {
-        return $this->getDomain() . '/smsapi/GetCreditBalance.aspx?';
-    }
-
-    /**
-     * Build character count api url
-     * 
-     * @return string
-     */
-    public function characterCountBaseUrl()
-    {
-        return $this->getDomain() . "/smsapi/GetCharacterCount.aspx?";
-    }
-
-    /**
-     * Build message count api url
-     * 
-     * @return string
-     */
-    public function messageCountBaseUrl()
-    {
-        return $this->getDomain() . "/smsapi/GetMessageCount.aspx?";
-    }
-
-    /**
      * Get sms balance from api
-     * 
+     * @access public
      * @return string
      */
     public function getCreditBalance()
@@ -59,11 +18,11 @@ class EtextMail extends BaseController
 
     /**
      * Send sms via the api
-     * 
-     * @param  $destination
-     * @param  $message
-     * @param  $longSms
-     * @return int/float
+     * @param  integer $destination
+     * @param  string $message
+     * @param  integer $longSms
+     * @access public
+     * @return integer
      */
     public function sendMessage($destination, $message, $longSms = null) 
     {
@@ -72,8 +31,8 @@ class EtextMail extends BaseController
 
     /**
      * Get number of messages sent/to be sent
-     * 
-     * @param  $message
+     * @param  string $message
+     * @access public
      * @return string
      */
     public function getMessageCount($message)
@@ -83,141 +42,12 @@ class EtextMail extends BaseController
 
     /**
      * Get the number of character in a message
-     * 
-     * @param  $message
+     * @param  string $message
+     * @access public
      * @return string
      */
     public function getCharacterCount($message)
     {
         return $this->getResponse($this->characterCountBaseUrl(), $this->setMessageCountData($message));
-    }
-
-    /**
-     * Build the query string parameter
-     * 
-     * @param  $sData
-     * @return string      
-     */
-    private function queryString($sData)
-    {
-        $data = array();
-
-        while (list($var, $value) = each($sData)) {
-            $data[] = "$var=$value";
-        }
-
-        return implode('&', $data);
-    }
-
-    /**
-     * Validate api url
-     * 
-     * @param  $url
-     * @return string
-     */
-    private function parseUrl($url)
-    {
-        $url = parse_url($url);
-        if ($url['scheme'] != 'http') {
-            throw new EtextMailException();
-        }
-
-        return $url;
-    }
-
-    /**
-     * Process http request
-     * 
-     * @param  string $url
-     * @param  $sData
-     * @return resource
-     */
-    private function sendRequest($url, $sData)
-    {
-        $data = $this->queryString($sData);
-        $host = $this->parseUrl($url)['host']; // extract host and path:
-        $path = $this->parseUrl($url)['path'];
-        $socket = fsockopen($host, 80); // open a socket connection on port 80
-     
-        fputs($socket, "POST $path HTTP/1.1\r\n"); // send the request headers:
-        fputs($socket, "Host: $host\r\n");
-        fputs($socket, "Content-type: application/x-www-form-urlencoded\r\n");
-        fputs($socket, "Content-length: " . strlen($data) . "\r\n");
-        fputs($socket, "Connection: close\r\n\r\n");
-        fputs($socket, $data);
-
-        return $socket;
-    }
-
-    /**
-     * Recieve result from the request
-     * 
-     * @param  string $url
-     * @param  $sData
-     * @return array
-     */
-    private function postRequest($url, $sData) 
-    {
-        $socket = $this->sendRequest($url, $sData);
-
-        $result = ''; 
-        while (!feof($socket)) {
-            $result .= fgets($socket, 128);
-        }
-
-        fclose($socket);
-     
-        $result = explode("\r\n\r\n", $result, 2); // split the result header from the content
-        $header = isset($result[0]) ? $result[0] : '';
-        $content = isset($result[1]) ? $result[1] : '';
-     
-        return [$header, $content];
-    }
-
-    /**
-     * @param string $senderId
-     */
-    private function validateSenderId($senderId)
-    {
-        return strlen($senderId) <= 11 != 0 && strlen($senderId) >= 2 ? true : false;
-    }
-
-    /**
-     * Get the response data from the result
-     * 
-     * @param  string $url
-     * @param  $data
-     * @return string
-     */
-    private function getResponse($url, $data)
-    {
-        list($header, $content) = $this->postRequest($url, $data);
-
-        $tok = strtok($content, " "); //Split the $content result into words
-
-        $errorCode = explode(' ', $content)[1];
-
-        if (!$this->validateSenderId($this->getSenderId())) {
-            throw new EtextMailException($errorCode);
-        }
-
-        return $this->successErrorMessage($tok, $errorCode);
-    }
-
-    /**
-     * Output function for call
-     * 
-     * @param  string $tok
-     * @param  $errorCode
-     * @return string
-     */
-    private function successErrorMessage($tok, $errorCode)
-    {
-        if ($tok == "OK") {
-            $tok = strtok(" ");
-            return $tok;
-        }
-        
-        throw new EtextMailException($errorCode);
     }
 }
