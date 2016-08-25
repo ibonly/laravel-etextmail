@@ -21,7 +21,7 @@ class EtextMail extends BaseController
      * Send sms via the api
      * @param  integer $destination
      * @param  string $message
-     * @param  boolean $longSms
+     * @param  integer $longSms
      * @access public
      * @return int/float
      */

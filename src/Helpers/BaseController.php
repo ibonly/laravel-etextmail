@@ -61,9 +61,9 @@ class BaseController
 
     /**
      * Set the data required to send sms
-     * @param  $destination
-     * @param  $message
-     * @param  $long
+     * @param  integer $destination
+     * @param  string $message
+     * @param  integer $long
      * @access public
      * @return array
      */
@@ -138,7 +138,7 @@ class BaseController
 
     /**
      * Build the query string parameter
-     * @param  $sData
+     * @param  array $sData
      * @access public
      * @return string      
      */
@@ -155,7 +155,7 @@ class BaseController
 
     /**
      * Validate api url
-     * @param  $url
+     * @param  string $url
      * @access public
      * @return string
      */
@@ -196,7 +196,7 @@ class BaseController
     /**
      * Recieve result from the request
      * @param  string $url
-     * @param  $sData
+     * @param  array $sData
      * @access public
      * @return array
      */
@@ -204,7 +204,7 @@ class BaseController
     {
         $socket = $this->sendRequest($url, $sData);
         $result = ''; 
-        
+
         while (!feof($socket)) {
             $result .= fgets($socket, 128);
         }
@@ -231,7 +231,7 @@ class BaseController
     /**
      * Get the response data from the result
      * @param  string $url
-     * @param  $data
+     * @param  array $data
      * @access public
      * @return string
      */
@@ -251,7 +251,7 @@ class BaseController
     /**
      * Output function for call
      * @param  string $tok
-     * @param  $errorCode
+     * @param  integer $errorCode
      * @access public
      * @return string
      */
