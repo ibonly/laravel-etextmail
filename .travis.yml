@@ -23,3 +23,5 @@ after_script: CODECLIMATE_REPO_TOKEN=801319689a0a1671d9b4065331cb42e28925ffe9198
 
 after_success:
   - travis_retry php vendor/bin/coveralls -v
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.clover
