@@ -22,7 +22,7 @@ class EtextMail extends BaseController
      * @param  string $message
      * @param  integer $longSms
      * @access public
-     * @return int/float
+     * @return integer
      */
     public function sendMessage($destination, $message, $longSms = null) 
     {
