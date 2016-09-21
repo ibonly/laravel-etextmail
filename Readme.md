@@ -27,7 +27,7 @@ Also, register the Facade like so:
 ```php
 'aliases' => [
     ...
-    'EtextMail' => Unicodeveloper\EtextMail\Facades\EtextMail::class,
+    'EtextMail' => Ibonly\EtextMail\Facades\EtextMail::class,
     ...
 ]
 ```
@@ -40,13 +40,13 @@ php artisan vendor:publish --provider="Ibonly\EtextMail\EtextMailServiceProvider
 A file `etextmail.php` containing default configuration settings will be added to `config/` directory.
 ```php
 return [
-	'senderid' => getenv('ETEXTMAIL_SENDER'),
+    'senderid' => getenv('ETEXTMAIL_SENDER'),
 
     'username' => getenv('ETEXTMAIL_EMAIL'),
 
     'password' => getenv('EXTEXTMAIL_PASSWORD'),
 
-    'url'	   => getenv('ETEXTMAIL_URL'),
+    'url'      => getenv('ETEXTMAIL_URL'),
 ];
 ```
 ##configuration (step 2)
