@@ -20,7 +20,7 @@ Also, register the Facade like so:
 ```php
 'aliases' => [
     ...
-    'EtextMail' => Unicodeveloper\EtextMail\Facades\EtextMail::class,
+    'EtextMail' => Ibonly\EtextMail\Facades\EtextMail::class,
     ...
 ]
 ```
@@ -60,11 +60,6 @@ use EtextMail;
 
 class SMS
 {
-	public function getCreditBalance()
-	{
-		dd(EtextMail::getSMSBalance());
-	}
-
 	public function	messageCount($message)
 	{
 		dd(EtextMail::getMessageCount($message));
@@ -88,7 +83,7 @@ class SMS
 
 	public function getSMSBalance()
 	{
-		dd(EtextMail::getCreditBalance())
+		dd(EtextMail::getSMSBalance())
 	}
 	
 	
