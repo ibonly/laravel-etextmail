@@ -12,7 +12,7 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
 
 	public function setUp()
 	{
-		$this->etextmail = m::mock('Ibonly\EtextMail\EtextMail');
+		$this->etextmail = m::mock(EtextMail::class);
 	}
 
     public function tearDown()
@@ -25,26 +25,6 @@ class EtextMailTest extends PHPUnit_Framework_TestCase
         $value = $this->etextmail->shouldReceive($receive)->andReturn($return);
         $this->$assert($expectedType, gettype($value));
     }
-
-	public function testShouldGetSenderId()
-	{
-        $this->receiveAndReturn('assertEquals', 'object', 'getSenderId', 'senderId');
-	}
-
-	public function testShouldGetUsername()
-	{
-        $this->receiveAndReturn('assertInternalType', 'string', 'getUsername', 'username');
-	}
-
-	public function testShouldGetPassword()
-	{
-        $this->receiveAndReturn('assertInternalType', 'string', 'getPassword', 'password');
-	}
-
-	public function testShouldGetDomain()
-	{
-        $this->receiveAndReturn('assertInternalType', 'string', 'getDomain', 'http://www.etaxtmail.com');
-	}
 
 	public function testShouldGetBalanceData()
 	{
