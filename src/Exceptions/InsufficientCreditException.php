@@ -10,14 +10,4 @@ class InsufficientCreditException extends Exception
     {
         parent::__construct("Insufficient sms credit");
     }
-
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
-    }
 }

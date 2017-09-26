@@ -10,14 +10,4 @@ class InvalidUserException extends Exception
     {
         parent::__construct("Invalid Username or Password provided");
     }
-
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
-    }
 }

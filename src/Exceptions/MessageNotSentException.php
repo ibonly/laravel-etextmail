@@ -8,16 +8,6 @@ class MessageNotSentException extends Exception
 {
 	public function __construct()
     {
-        parent::__construct("Message not sent");
-    }
-    
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
+        parent::__construct("Message not sent, please try again");
     }
 }

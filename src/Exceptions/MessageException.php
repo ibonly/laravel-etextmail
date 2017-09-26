@@ -10,14 +10,4 @@ class MessageException extends Exception
     {
         parent::__construct("Message is required");
     }
-    
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
-    }	
 }

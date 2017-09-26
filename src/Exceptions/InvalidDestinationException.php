@@ -16,7 +16,7 @@ class InvalidDestinationException extends Exception
      *
      * @return string
      */
-    public function errorMessage($errorCode)
+    public function errorMessage($errorCode = null)
     {
         switch ($errorCode) {
             case -15:
@@ -24,11 +24,10 @@ class InvalidDestinationException extends Exception
                 break;
 
             case -45:
-                return "Missing or Invalid destination;"
+                return "Missing or Invalid destination";
                 break;
 
             default:
-                return "Invalid destination";
                 break;
         }
     }

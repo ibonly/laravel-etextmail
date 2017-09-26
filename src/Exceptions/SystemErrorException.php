@@ -10,14 +10,4 @@ class SystemErrorException extends Exception
     {
         parent::__construct("System error, please try again");
     }
-
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
-    }
 }

@@ -10,14 +10,4 @@ class MessageLimitException extends Exception
     {
         parent::__construct("Message exceed maximum length of 459 characters");
     }
-    
-    /**
-     * Get error message
-     *
-     * @return string
-     */
-    public function errorMessage()
-    {
-        return $this->getMessage();
-    }
 }
